@@ -13,3 +13,7 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat
+Imports: 
+    zeallot,
+    purrr
+RoxygenNote: 6.1.1
