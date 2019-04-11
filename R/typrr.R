@@ -5,6 +5,11 @@ equation <- function(lhs, rhs) {
   structure(list(lhs = lhs, rhs = rhs), class = "equation")
 }
 
+ with_index <- function(equation, src_index) {
+  equation$src_index <- src_index
+  equation
+}
+
 empty_equation <- function() structure(list(), class = "equation")
 
 print.equation <- function(x, ...) {
