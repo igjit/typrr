@@ -107,7 +107,7 @@ substitute_type1 <- function(var, val, ty) {
 substitute_type <- function(var, val, E) {
   lhs <- substitute_type1(var, val, E$lhs)
   rhs <- substitute_type1(var, val, E$rhs)
-  equation(lhs, rhs)
+  with_index(equation(lhs, rhs), E$src_index)
 }
 
 unify <- function(equations) {
@@ -128,12 +128,12 @@ unify <- function(equations) {
     S %U% equation(E1$rhs, E1$lhs)
   } else if (is(E1$lhs, "function_type")) {
     E <- empty_equation() %U%
-      equation(E1$lhs$from, E1$rhs$from) %U%
-      equation(E1$lhs$to, E1$rhs$to) %U%
+      with_index(equation(E1$lhs$from, E1$rhs$from), E1$src_index) %U%
+      with_index(equation(E1$lhs$to, E1$rhs$to), E1$src_index) %U%
       E_rest
     unify(E)
   } else {
-    stop("type error")
+    stop("type error:", E1$src_index)
   }
 }
 
