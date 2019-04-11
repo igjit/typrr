@@ -110,30 +110,34 @@ substitute_type <- function(var, val, E) {
   with_index(equation(lhs, rhs), E$src_index)
 }
 
-unify <- function(equations) {
+unify <- function(equations, exit = NULL) {
   if(length(equations) == 0) return(list())
 
   E1 <- equations[[1]]
   E_rest <- equations[-1]
 
   if (eq(E1$lhs, E1$rhs)) {               # τ = τ
-    unify(E_rest)
+    unify(E_rest, exit)
   } else if (is(E1$lhs, "type_variable")) { # α = τ
     assigned <- map(E_rest, ~ substitute_type(E1$lhs, E1$rhs, .))
-    S <- unify(assigned)
+    S <- unify(assigned, exit)
     S %U% E1
   } else if (is(E1$rhs, "type_variable")) { # τ = α
     assigned <- map(E_rest, ~ substitute_type(E1$rhs, E1$lhs, .))
-    S <- unify(assigned)
+    S <- unify(assigned, exit)
     S %U% equation(E1$rhs, E1$lhs)
   } else if (is(E1$lhs, "function_type")) {
     E <- empty_equation() %U%
       with_index(equation(E1$lhs$from, E1$rhs$from), E1$src_index) %U%
       with_index(equation(E1$lhs$to, E1$rhs$to), E1$src_index) %U%
       E_rest
-    unify(E)
+    unify(E, exit)
   } else {
-    stop("type error:", E1$src_index)
+    if (is.function(exit)) {
+      exit(structure(list(src_index = E1$src_index), class = "type_error"))
+    } else {
+      stop("type error:", E1$src_index)
+    }
   }
 }
 
