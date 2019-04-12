@@ -15,5 +15,6 @@ Suggests:
     testthat
 Imports: 
     zeallot,
-    purrr
+    purrr,
+    lintr
 RoxygenNote: 6.1.1
