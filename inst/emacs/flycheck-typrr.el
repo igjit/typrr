@@ -2,9 +2,9 @@
 
 (flycheck-define-checker r-typrr
   "An R type checking using typrr package."
-  :command ("Rscript" "--vanilla" "-e"
+  :command ("R" "--slave" "--vanilla" "-e"
             "error <- typrr::type_check(commandArgs(TRUE)); if (!is.null(error)) cat(error$line, error$message, sep = ':')"
-            source)
+            "--args" source)
   :error-patterns
   ((error line-start line ":" (message) line-end))
   :modes ess-mode)
