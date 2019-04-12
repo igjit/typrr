@@ -16,5 +16,6 @@ Suggests:
 Imports: 
     zeallot,
     purrr,
-    lintr
+    lintr,
+    magrittr
 RoxygenNote: 6.1.1
