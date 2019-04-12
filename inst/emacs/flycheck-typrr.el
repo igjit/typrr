@@ -2,7 +2,7 @@
 
 (flycheck-define-checker r-typrr
   "An R type checking using typrr package."
-  :command ("R" "--slave" "--vanilla" "-e"
+  :command ("R" "--slave" "--no-save" "-e"
             "error <- typrr::type_check(commandArgs(TRUE)); if (!is.null(error)) cat(error$line, error$message, sep = ':')"
             "--args" source)
   :error-patterns
