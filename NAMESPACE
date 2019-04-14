@@ -2,6 +2,7 @@
 
 export("%>%")
 export(type_check)
+export(typrr_linter)
 importFrom(magrittr,"%>%")
 importFrom(purrr,detect)
 importFrom(purrr,flatten)
