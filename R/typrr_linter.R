@@ -1,3 +1,5 @@
+#' Type checking linter
+#'
 #' @export
 typrr_linter <- function() {
   read <- list()

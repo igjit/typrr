@@ -1,5 +1,9 @@
 #' @importFrom purrr imap flatten
+NULL
 
+#' Type check
+#'
+#' @param filename file
 #' @export
 type_check <- function(filename) {
   expressions <- source_expressions(filename)
