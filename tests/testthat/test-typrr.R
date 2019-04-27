@@ -1,5 +1,10 @@
 context("typrr.R")
 
+test_that("print.equation", {
+  E <- equation(type("double"), type("double"))
+  expect_output(print(E), "double = double")
+})
+
 test_that("variable_name_generator", {
   gen <- variable_name_generator()
   tv <- c(gen(), gen(), gen())
