@@ -30,6 +30,14 @@ test_that("substitute_type1", {
                function_type(type("double"), type("logical")))
 })
 
+test_that("unify", {
+  E <- equation(function_type(type_variable("'a"), type("double")),
+                function_type(type("double"), type("double")))
+  expect_equal(unify(list(E)), list(equation(type_variable("'a"), type("double"))))
+
+  expect_error(unify(list(with_index(equation(type("double"), type("character")), 12))), "type error:12")
+})
+
 test_that("PT", {
   expect_is(PT(parse(text = "1.2")), "double")
   expect_is(PT(parse(text = "a <- function(x) x + 2; a(1)")), "double")
